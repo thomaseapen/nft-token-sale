@@ -25,7 +25,7 @@ contract ERC20TestToken is IERC20 {
     using SafeMath for uint256;
 
 
-    constructor() public payable{
+    constructor()  payable{
 
     balances[msg.sender] = totalSupply_;
 
