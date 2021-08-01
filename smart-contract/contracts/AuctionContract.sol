@@ -25,22 +25,20 @@ contract AuctionContract{
  event LogBid(address bidder, uint bid, address highestBidder, uint highestBid);
 
 
-function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _startBlock, uint _endBlock, uint minBid, uint _tokenId) public {
-        require(_startBlock >= _endBlock, "Start time cannot be more than end time") ;
-        require (_startBlock < block.number, "Invalid start time") ;
-        require (_owner == address(0), "Invalid Owner") ;
+function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _duration, uint minBid, uint _tokenId) public {
+        require(_duration >= 60, "Duration for Auction cannot be less than a minute") ;
         erc20Token = ERC20TestToken(erc20TokenAddress);
         erc721NFT = ERC721TestNFT(erc721Address);
         owner = _owner;
-        startBlock = _startBlock;
-        endBlock = _endBlock;
+        startBlock = block.timestamp ;
+        endBlock = startBlock + _duration;
         highestBindingBid = minBid;
         highestBidderAddress = owner;
         tokenId = _tokenId;
 }
 
 
-function placeBid(address bidderAddress, uint bidAmount)
+function placeBid(uint bidAmount)
         payable
         afterStart
         beforeEnd
@@ -48,12 +46,12 @@ function placeBid(address bidderAddress, uint bidAmount)
         returns (bool success)
     {
             //Emit the event for logging of bids
-            emit LogBid(bidderAddress, bidAmount, highestBidderAddress, highestBindingBid);
-            require(highestBindingBid >= bidAmount, "Bid Lower than or equal to highest bid");
-            require(erc20Token.balanceOf(bidderAddress) >= bidAmount, "Balance not present");
+            emit LogBid(msg.sender, bidAmount, highestBidderAddress, highestBindingBid);
+            require(highestBindingBid <= bidAmount, "Bid Lower than or equal to highest bid");
+            require(erc20Token.balanceOf(msg.sender) >= bidAmount, "Balance not present");
             //Need to improve using Allowance for approve/allow flows for ERC20 token
             highestBindingBid = bidAmount;
-            highestBidderAddress = bidderAddress;
+            highestBidderAddress = msg.sender;
             return true;
     }
 
@@ -68,12 +66,12 @@ function endBid()
         }
 
 modifier afterStart() {
-        require(block.number < startBlock, "Auction not started");
+        require(block.timestamp >= startBlock, "Auction not started");
         _;
     }
 
     modifier beforeEnd(){
-        require(block.number > endBlock, "Auction time ended");
+        require(block.timestamp <= endBlock, "Auction time ended");
         require(auctionComplete == false, "Auction ended");
         _;
     }
