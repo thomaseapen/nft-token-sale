@@ -47,7 +47,7 @@ function placeBid(uint bidAmount)
     {
             //Emit the event for logging of bids
             emit LogBid(msg.sender, bidAmount, highestBidderAddress, highestBindingBid);
-            require(highestBindingBid <= bidAmount, "Bid Lower than or equal to highest bid");
+            require(highestBindingBid < bidAmount, "Bid Lower than or equal to highest bid");
             require(erc20Token.balanceOf(msg.sender) >= bidAmount, "Balance not present");
             //Need to improve using Allowance for approve/allow flows for ERC20 token
             highestBindingBid = bidAmount;
