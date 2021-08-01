@@ -33,6 +33,8 @@ Improvements that can be made:
 
 1. ERC20 is a simple smart contract and does not have appropriate controls. We can enhance it using approve feature with transferFrom to ensure the owner of erc20 token can predefine tokens allowed for a specific receiver which ensures that only amounts lower than that can be transferred.
 2. ERC721 is also very basic without a lot of functions
+3. Function modifiers on who can operate on which functions can be improved to ensure only systematic wallets are able to modify certain states.
+
 
 Testing:
 Currently functionality is tested tusing remix ide. I will try to create a DAPP with web apis for simulation.
