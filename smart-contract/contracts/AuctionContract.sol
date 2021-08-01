@@ -12,6 +12,8 @@ contract AuctionContract{
     string public ipfsHash;
     uint public tokenId;
     
+    address public deployerAddress;
+    
     ERC20TestToken erc20Token;
     ERC721TestNFT erc721NFT;
 
@@ -42,6 +44,7 @@ function Auction(address _owner, address erc20TokenAddress, address erc721Addres
         highestBindingBid = minBid;
         highestBidderAddress = owner;
         tokenId = _tokenId;
+        deployerAddress = msg.sender;
 }
 
 
@@ -63,7 +66,7 @@ function placeBid(uint bidAmount)
     }
 
 function endBid()
-        isOwner public
+        isDeployer public
         returns(bool success){
             //Transfer money to owner
             erc20Token.transferFrom(highestBidderAddress, owner , highestBindingBid);
@@ -90,9 +93,14 @@ modifier afterStart() {
         require(msg.sender != owner, "Owner cannot bid");
         _;
     }
+    
+    modifier notDeployer {
+        require(msg.sender != deployerAddress, "Contract Deployer cannot bid");
+        _;
+    }
 
-    modifier isOwner {
-        require(msg.sender == owner, "Not the owner");
+    modifier isDeployer {
+        require(msg.sender == deployerAddress, "Not the owner");
         _;
     }
 
