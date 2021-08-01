@@ -4,7 +4,7 @@
 1.2 Deploy the NFT token(ERC721TestNFT) smart contract using a application based wallet address
 1.3 Deploy the Auction(AuctionContract) smart contract using a application based wallet address
 
-Distributing ERC20TestToken tokens to accounts who wants to bid
+### Distributing ERC20TestToken tokens to accounts who wants to bid
 
 2.1 Using ERC20TestToken deployed use the transferFrom method to send tokens from the application based wallet to other addresses. We will use these addresses for the Auction bidding
 2.2 REpeat step one for 2-3 addresses which can be used for bidding process
