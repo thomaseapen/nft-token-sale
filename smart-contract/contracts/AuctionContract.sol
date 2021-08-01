@@ -18,15 +18,21 @@ contract AuctionContract{
     address public highestBidderAddress;
     mapping(address => uint256) public fundsByBidder;
     uint public highestBindingBid;
+    
+    //Flag to allow same smart contract to be reinitialized for another bid
+    bool public newAuctionReady = true;
 
     bool auctionComplete = false;
 
-
+//Event recording for all bids placed even if they might not be accepted
  event LogBid(address bidder, uint bid, address highestBidder, uint highestBid);
 
 
 function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _duration, uint minBid, uint _tokenId) public {
+        require(newAuctionReady, "Another Auction in progress");
         require(_duration >= 60, "Duration for Auction cannot be less than a minute") ;
+        newAuctionReady = false;
+        auctionComplete = false;
         erc20Token = ERC20TestToken(erc20TokenAddress);
         erc721NFT = ERC721TestNFT(erc721Address);
         owner = _owner;
@@ -62,6 +68,7 @@ function endBid()
             erc20Token.transferFrom(highestBidderAddress, owner , highestBindingBid);
             erc721NFT.transferFrom(owner, highestBidderAddress, tokenId);
             auctionComplete = true;
+            newAuctionReady = true;
             return true;
         }
 
