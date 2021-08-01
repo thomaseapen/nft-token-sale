@@ -10,22 +10,22 @@ contract AuctionContract{
     uint public startBlock;
     uint public endBlock;
     string public ipfsHash;
-    uint public bidIncrement;
-
+    uint public tokenId;
+    
     ERC20TestToken erc20Token;
     ERC721TestNFT erc721NFT;
 
-    address public highestBidder;
+    address public highestBidderAddress;
     mapping(address => uint256) public fundsByBidder;
     uint public highestBindingBid;
 
     bool auctionComplete = false;
 
 
+ event LogBid(address bidder, uint bid, address highestBidder, uint highestBid);
 
 
-
-function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _startBlock, uint _endBlock) public {
+function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _startBlock, uint _endBlock, uint minBid, uint _tokenId) public {
         require(_startBlock >= _endBlock, "Start time cannot be more than end time") ;
         require (_startBlock < block.number, "Invalid start time") ;
         require (_owner == address(0), "Invalid Owner") ;
@@ -34,23 +34,35 @@ function Auction(address _owner, address erc20TokenAddress, address erc721Addres
         owner = _owner;
         startBlock = _startBlock;
         endBlock = _endBlock;
+        highestBindingBid = minBid;
+        highestBidderAddress = owner;
+        tokenId = _tokenId;
 }
 
 
-function placeBid()
+function placeBid(address bidderAddress, uint bidAmount)
         payable
         afterStart
         beforeEnd
         notOwner public
         returns (bool success)
     {
-            //Implementation to be added
+            //Emit the event for logging of bids
+            emit LogBid(bidderAddress, bidAmount, highestBidderAddress, highestBindingBid);
+            require(highestBindingBid >= bidAmount, "Bid Lower than or equal to highest bid");
+            require(erc20Token.balanceOf(bidderAddress) >= bidAmount, "Balance not present");
+            //Need to improve using Allowance for approve/allow flows for ERC20 token
+            highestBindingBid = bidAmount;
+            highestBidderAddress = bidderAddress;
             return true;
     }
 
 function endBid()
         isOwner public
         returns(bool success){
+            //Transfer money to owner
+            erc20Token.transfer(highestBidderAddress, highestBindingBid);
+            erc721NFT.transferFrom(owner, highestBidderAddress, tokenId);
             auctionComplete = true;
             return true;
         }
@@ -65,6 +77,8 @@ modifier afterStart() {
         require(auctionComplete == false, "Auction ended");
         _;
     }
+
+    
 
     modifier notOwner {
         require(msg.sender != owner, "Owner cannot bid");
