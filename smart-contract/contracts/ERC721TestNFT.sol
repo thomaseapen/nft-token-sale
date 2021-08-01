@@ -3,7 +3,7 @@ pragma solidity 0.8.6 ;
 import './IERC721.sol';
 import './SafeMath.sol';
 
-contract IERC721TestNFT is IERC721{
+contract ERC721TestNFT is IERC721{
 
     string private _name;
     string private _symbol;
