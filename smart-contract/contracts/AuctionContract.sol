@@ -35,6 +35,7 @@ function Auction(address _owner, address erc20TokenAddress, address erc721Addres
         auctionComplete = false;
         erc20Token = ERC20TestToken(erc20TokenAddress);
         erc721NFT = ERC721TestNFT(erc721Address);
+        require(erc721NFT.ownerOf(_tokenId) == _owner, "Token does not belong to owner");
         owner = _owner;
         startBlock = block.timestamp ;
         endBlock = startBlock + _duration;
