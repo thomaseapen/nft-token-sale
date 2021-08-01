@@ -59,7 +59,7 @@ function endBid()
         isOwner public
         returns(bool success){
             //Transfer money to owner
-            erc20Token.transfer(highestBidderAddress, highestBindingBid);
+            erc20Token.transferFrom(highestBidderAddress, owner , highestBindingBid);
             erc721NFT.transferFrom(owner, highestBidderAddress, tokenId);
             auctionComplete = true;
             return true;

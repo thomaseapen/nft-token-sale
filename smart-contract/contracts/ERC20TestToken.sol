@@ -46,11 +46,11 @@ contract ERC20TestToken is IERC20 {
     }
 
 
-    function transfer(address receiver, uint256 numTokens) public  payable override returns (bool) {
+    function transferFrom(address sender, address receiver, uint256 numTokens) public  payable override returns (bool) {
 
-        require(numTokens <= balances[msg.sender]);
+        require(numTokens <= balances[sender]);
 
-        balances[msg.sender] = balances[msg.sender].sub(numTokens);
+        balances[sender] = balances[sender].sub(numTokens);
 
         balances[receiver] = balances[receiver].add(numTokens);
 
