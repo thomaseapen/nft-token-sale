@@ -29,8 +29,12 @@ contract AuctionContract{
 //Event recording for all bids placed even if they might not be accepted
  event LogBid(address bidder, uint bid, address highestBidder, uint highestBid);
 
+    constructor()  {
+        deployerAddress = msg.sender;
+    }
 
-function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _duration, uint minBid, uint _tokenId) public {
+
+function Auction(address _owner, address erc20TokenAddress, address erc721Address , uint _duration, uint minBid, uint _tokenId) isDeployer public {
         require(newAuctionReady, "Another Auction in progress");
         require(_duration >= 60, "Duration for Auction cannot be less than a minute") ;
         newAuctionReady = false;
@@ -44,7 +48,6 @@ function Auction(address _owner, address erc20TokenAddress, address erc721Addres
         highestBindingBid = minBid;
         highestBidderAddress = owner;
         tokenId = _tokenId;
-        deployerAddress = msg.sender;
 }
 
 
