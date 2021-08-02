@@ -34,6 +34,8 @@
 1. ERC20 is a simple smart contract and does not have appropriate controls. We can enhance it using approve feature with transferFrom to ensure the owner of erc20 token can predefine tokens allowed for a specific receiver which ensures that only amounts lower than that can be transferred.
 2. ERC721 is also very basic without a lot of functions
 3. Function modifiers on who can operate on which functions can be improved to ensure only systematic wallets are able to modify certain states.
+4. Loggin events can be introduced for traceability and improved experience when events can be read by applications.
+5. Safe math can be used whereever there are arithmatic operations
 
 ### Testing:
 
