@@ -48,6 +48,7 @@ const ERC2721_SC_ADDRESS = "0x02A5C1Cc0E12C48cb29B5Ed29fAEa4b07c0BfdC2";
 const AUCTION_SC_ADDRESS = "0x8F9a72D56cA360c8Ca889264a3c2e6e10CB19dAB";
 
 Note: Deploy all contracts with WALLET_ADDRESS(which is really used by the application)
+
 3. Using postman replace the following addresses in the local variable with any 3 account address for simulating as token owner and buyers
 bidder_1
 
