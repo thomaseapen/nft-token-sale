@@ -1,0 +1,366 @@
+{
+	"info": {
+		"_postman_id": "be983358-8b2c-4175-bddc-5e5249b37465",
+		"name": "nft-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ERC20",
+			"item": [
+				{
+					"name": "ERC Token Total Supply",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/getERC20Supply",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"getERC20Supply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Balance ERC20",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/balanceERC20?address={{bidder_1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"balanceERC20"
+							],
+							"query": [
+								{
+									"key": "address",
+									"value": "{{bidder_1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer ERC20 for First Bidder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/transferERC20?address={{bidder_1}}&token=200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"transferERC20"
+							],
+							"query": [
+								{
+									"key": "address",
+									"value": "{{bidder_1}}"
+								},
+								{
+									"key": "token",
+									"value": "200"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer ERC20 for Second Bidder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/transferERC20?address={{bidder_2}}&token=300",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"transferERC20"
+							],
+							"query": [
+								{
+									"key": "address",
+									"value": "{{bidder_2}}"
+								},
+								{
+									"key": "token",
+									"value": "300"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ERC721",
+			"item": [
+				{
+					"name": "Mint ERC 721",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/mintERC721?address={{nft_owner}}&tokenId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"mintERC721"
+							],
+							"query": [
+								{
+									"key": "address",
+									"value": "{{nft_owner}}"
+								},
+								{
+									"key": "tokenId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ERC 721 Wallet Owner Address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/getTokenOwnerERC721?tokenId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"getTokenOwnerERC721"
+							],
+							"query": [
+								{
+									"key": "tokenId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auction",
+			"item": [
+				{
+					"name": "Auction start",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/startAuction?duration=120&minBid=25&tokenId=1&tokenOwnerAddress={{nft_owner}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"startAuction"
+							],
+							"query": [
+								{
+									"key": "duration",
+									"value": "120"
+								},
+								{
+									"key": "minBid",
+									"value": "25"
+								},
+								{
+									"key": "tokenId",
+									"value": "1"
+								},
+								{
+									"key": "tokenOwnerAddress",
+									"value": "{{nft_owner}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bid for Auction First bid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/bidForAuction?bidAmount=50&bidderWalletAddress={{bidder_1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"bidForAuction"
+							],
+							"query": [
+								{
+									"key": "bidAmount",
+									"value": "50"
+								},
+								{
+									"key": "bidderWalletAddress",
+									"value": "{{bidder_1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bid for Auction Second bid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/bidForAuction?bidAmount=100&bidderWalletAddress={{bidder_2}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"bidForAuction"
+							],
+							"query": [
+								{
+									"key": "bidAmount",
+									"value": "100"
+								},
+								{
+									"key": "bidderWalletAddress",
+									"value": "{{bidder_2}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bid for Auction Third bid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/bidForAuction?bidAmount=100&bidderWalletAddress={{bidder_1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"bidForAuction"
+							],
+							"query": [
+								{
+									"key": "bidAmount",
+									"value": "100"
+								},
+								{
+									"key": "bidderWalletAddress",
+									"value": "{{bidder_1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bid for Auction Fourth bid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/bidForAuction?bidAmount=100&bidderWalletAddress={{bidder_2}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"bidForAuction"
+							],
+							"query": [
+								{
+									"key": "bidAmount",
+									"value": "100"
+								},
+								{
+									"key": "bidderWalletAddress",
+									"value": "{{bidder_2}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "End Auction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8881/endAuction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8881",
+							"path": [
+								"endAuction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "bidder_1",
+			"value": "0xF5Fb7724b3fB3f3bb6e52BacC331Caa8B3c4c3bd"
+		},
+		{
+			"key": "bidder_2",
+			"value": "0x1a2FDa8b71fbF749A7a6660d72A463942C15ABfc"
+		},
+		{
+			"key": "nft_owner",
+			"value": "0x3Cc0661fCb55DE0B5AFe6d4a8944Efa528Dce006"
+		}
+	]
+}
