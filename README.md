@@ -51,6 +51,10 @@ const AUCTION_SC_ADDRESS = "0x8F9a72D56cA360c8Ca889264a3c2e6e10CB19dAB";
 
 Note: Deploy all contracts with WALLET_ADDRESS(which is really used by the application)
 
+Start the app using:
+
+node app.js
+
 3. Using postman replace the following addresses in the local variable with any 3 account address for simulating as token owner and buyers
 
 bidder_1
